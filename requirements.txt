@@ -1,0 +1,8 @@
+torch==2.3.0
+torchvision==0.18.0
+opencv-python==4.9.0.80
+pandas==2.2.0
+numpy==1.26.0
+tqdm==4.66.0
+pytorchvideo==0.1.5
+transformers==4.45.0
