@@ -10,12 +10,12 @@ def generate_submission(model_path='./outputs/models/best_model.pth', split='tes
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     # Load dataset
-    data_directory = '/home/cpami-llm/CPAMI_WorkPlace/Rezwan/MSLR-2025/iccv-mslr-2025-track-2/iccv-mslr-2025-track-2/Sessioni CHALLENGE ICCV MSLR 2025 Track 2 - Train Val'
+    data_directory = '../data'
     dataset = SessioniDataset(root_dir=f'{data_directory}/{split}', split=split, num_frames=16, transform=val_transform)
     loader = DataLoader(dataset, batch_size=8, shuffle=False, num_workers=4)
 
     # Load model
-    model = TwoStreamCNNLSTM(num_classes=126).to(device)
+    model = TwoStreamCNNLSTM(num_classes=126).to(device) ## 0.96575
     if torch.cuda.device_count() > 1:
         model = torch.nn.DataParallel(model)
 
