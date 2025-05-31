@@ -14,7 +14,7 @@ def train_model():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     # Datasets
-    data_directory = '/home/cpami-llm/CPAMI_WorkPlace/Rezwan/MSLR-2025/iccv-mslr-2025-track-2/iccv-mslr-2025-track-2/Sessioni CHALLENGE ICCV MSLR 2025 Track 2 - Train Val'
+    data_directory = '../data'
     train_dataset = SessioniDataset(root_dir=f'{data_directory}/train', split='train', num_frames=16, transform=train_transform)
     val_dataset = SessioniDataset(root_dir=f'{data_directory}/val', split='val', num_frames=16, transform=val_transform)
 
