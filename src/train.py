@@ -2,14 +2,14 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from dataloader import SessioniDataset, train_transform, val_transform
-from model import TwoStreamCNNLSTM, AdvancedTwoStreamModel
+from model import TwoStreamCNNLSTM, AdvancedTwoStreamModel, UltraAdvancedTwoStreamModel, SwinTwoStreamModel
 from tqdm import tqdm
 import os
 
-def train_model():
+def train_model(resume=False, checkpoint_path='./outputs/models/best_model.pth'):
     # Hyperparameters
     batch_size = 4
-    num_epochs = 25
+    num_epochs = 20
     learning_rate = 1e-4
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -24,7 +24,9 @@ def train_model():
 
     ## Model and multi-GPU
     # model = TwoStreamCNNLSTM(num_classes=126)
-    model = AdvancedTwoStreamModel(num_classes=126)
+    model = AdvancedTwoStreamModel(num_classes=126) ## 0.9937
+    # model = UltraAdvancedTwoStreamModel(num_classes=126) ## pore 
+    # model = SwinTwoStreamModel(num_classes=126) ### 
     if torch.cuda.device_count() > 1:
         print(f"Using {torch.cuda.device_count()} GPUs")
         model = nn.DataParallel(model)
@@ -33,10 +35,20 @@ def train_model():
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.01)
 
+    best_acc = 0.0 # Initialize best accuracy
+    best_train_loss = float('inf')
+    start_epoch = 0
 
-    # Training loop
-    best_acc = 0.0
-    for epoch in range(num_epochs):
+    # Resume from checkpoint if requested
+    if resume and os.path.exists(checkpoint_path):
+        best_acc = 99.65 #99.49 # Initialize best accuracy ###### <<==============
+        print(f"Resuming from checkpoint: {checkpoint_path}")
+        model.load_state_dict(torch.load(checkpoint_path))
+        # Optionally, evaluate on validation set to update best_acc
+        print("Best accuracy from checkpoint:", best_acc)
+
+    for epoch in range(start_epoch, num_epochs):
+        # ...existing code...
         model.train()
         train_loss = 0.0
         correct = 0
@@ -59,7 +71,8 @@ def train_model():
             correct += predicted.eq(labels).sum().item()
 
         train_acc = 100. * correct / total
-        print(f'Epoch {epoch+1}, Train Loss: {train_loss/len(train_loader):.4f}, Train Acc: {train_acc:.2f}%')
+        avg_train_loss = train_loss/len(train_loader)
+        print(f'Epoch {epoch+1}, Train Loss: {avg_train_loss:.4f}, Train Acc: {train_acc:.2f}%')
 
         # Save best model
         if train_acc > best_acc:
@@ -67,8 +80,14 @@ def train_model():
             torch.save(model.state_dict(), './outputs/models/best_model.pth')
             print(f'[✔] Best model updated at epoch {epoch+1} with accuracy {train_acc:.2f}%')
 
+        # Save model if training loss decreases
+        if avg_train_loss <= best_train_loss:
+            best_train_loss = avg_train_loss
+            torch.save(model.state_dict(), './outputs/models/best_model_loss.pth')
+            print(f'[✔] Model saved at epoch {epoch+1} with improved training loss: {avg_train_loss:.4f}')
+
     print('Training completed.')
 
 if __name__ == '__main__':
     os.makedirs('./outputs/models', exist_ok=True)
-    train_model()
+    train_model(resume=True, checkpoint_path='./outputs/models/best_model.pth')  # Set resume=True to load the saved model
