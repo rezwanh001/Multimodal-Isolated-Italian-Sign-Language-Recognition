@@ -16,7 +16,20 @@ python submission.py
 ```
 
 ## Result Overview:
-| Task              | Accuracy Dev (%) |
-|-------------------|----------|
-| **TwoStreamCNNLSTM** | 7.93% |
-| **TwoStreamTransformer**    | 96.575% |
+# Model Performance Results
+
+Here are the performance metrics for various models, including individual architectures and an ensemble approach.
+
+| Model                       | Validation Acc | Test Acc |
+|-----------------------------|----------------|----------|
+| TwoStreamCNNLSTM            | 0.96575        | 0.96575  |
+| AdvancedTwoStreamModel      |                |          |
+| &nbsp;&nbsp;&nbsp;&nbsp;- Run 1 | 0.98594        | 0.98594  |
+| &nbsp;&nbsp;&nbsp;&nbsp;- Run 2 | 0.98752        | 0.99126  |
+| &nbsp;&nbsp;&nbsp;&nbsp;- Run 3 | 0.98662        | 0.98994  |
+| &nbsp;&nbsp;&nbsp;&nbsp;- Run 4 | 0.98956        | 0.99060  |
+| UltraAdvancedTwoStreamModel | 0.96938        | 0.97341  |
+| SwinTwoStreamModel          | 0.94240        | 0.94417  |
+| **Ensemble All Model** | **0.99365** | **0.99444** |
+
+**Note:** The ensemble model combines TwoStreamCNNLSTM, AdvancedTwoStreamModel, UltraAdvancedTwoStreamModel, and SwinTwoStreamModel.
