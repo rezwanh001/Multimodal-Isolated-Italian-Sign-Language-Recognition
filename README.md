@@ -16,7 +16,7 @@ python submission.py
 ```
 
 ## Result Overview:
-# Model Performance Results
+### Model Performance Results
 
 Here are the performance metrics for various models, including individual architectures and an ensemble approach.
 
