@@ -9,7 +9,7 @@ import os
 def train_model(resume=False, checkpoint_path='./outputs/models/best_model.pth'):
     # Hyperparameters
     batch_size = 4
-    num_epochs = 20
+    num_epochs = 120
     learning_rate = 1e-4
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
