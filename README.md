@@ -3,6 +3,15 @@
 ---
 1st Multimodal Isolated Italian Sign Language Recognition C. using RGB and Radar-RDM Data from the [MultiMeDaLIS Dataset](https://www.kaggle.com/competitions/iccv-mslr-2025-track-2/data) (Mineo et al., 2024). This track presents a sign language recognition task on our multimodal dataset, featuring RGB videos and 60 GHz radar range-Doppler maps, and including 126 Italian Sign Language gestures (100 medical terms + 26 letters) across 205 expert sessions.
 
+## Propossed models Architecture (FusionEnsemble-Net):
+
+
+![Diagram of the FusionEnsemble-Net Architecture](asset/FusionEnsemble-Net.png)
+
+*__Figure 1: FusionEnsemble-Net.__ Our proposed hierarchical ensemble architecture for multimodal isolated sign language recognition. The model comprises three major stages:  **Multimodal Feature Extraction**: Parallel spatiotemporal networks retrieve high-level features by processing RGB and RDM data with four different networks and temporal modeling layers. **Attention Fusion**: Feature representations are dynamically combined via an attention mechanism that fuses information across multiple modalities. **Ensemble Classification**: The four resulting feature vectors are input to independent classifiers, whose predictions are aggregated to provide a final sign language recognition output.*
+
+---
+
 ## Running the Model
 
 ```
