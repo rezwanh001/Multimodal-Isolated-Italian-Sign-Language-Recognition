@@ -5,6 +5,9 @@ from timm.models import create_model
 
 ##---------------------------------------------------------------------------------------------
 class TwoStreamCNNLSTM(nn.Module):
+    '''
+    Backbone Method: `3D ResNet`
+    '''
     def __init__(self, num_classes=126, hidden_size=512, num_layers=2):
         super(TwoStreamCNNLSTM, self).__init__()
         
@@ -60,6 +63,9 @@ class TwoStreamCNNLSTM(nn.Module):
     
 ##---------------------------------------------------------------------------------------------
 class AdvancedTwoStreamModel(nn.Module):
+    '''
+    Backbone Method: `MC3`
+    '''
     def __init__(self, num_classes=126, hidden_size=512, num_layers=2):
         super(AdvancedTwoStreamModel, self).__init__()
         
@@ -123,15 +129,20 @@ class FusionAttention(nn.Module):
         return self.fc(attn_output.mean(dim=1))
 
 class UltraAdvancedTwoStreamModel(nn.Module):
+    '''
+    Backbone Method: `R(2+1)D`
+    '''
     def __init__(self, num_classes=126, hidden_size=512, num_layers=2):
         super().__init__()
         self.rgb_cnn = video_models.r2plus1d_18(weights='KINETICS400_V1')
         self.rgb_cnn.fc = nn.Identity()
         self.rdm_cnn = video_models.r2plus1d_18(weights='KINETICS400_V1')
         self.rdm_cnn.fc = nn.Identity()
+
         encoder_layer = nn.TransformerEncoderLayer(d_model=512, nhead=8, dim_feedforward=1024)
         self.rgb_transformer = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
         self.rdm_transformer = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+
         self.fusion_attention = FusionAttention(1024, hidden_size)
         self.classifier = nn.Linear(hidden_size, num_classes)
     def forward(self, rgb, rdm):
@@ -154,6 +165,9 @@ class UltraAdvancedTwoStreamModel(nn.Module):
     
 ##---------------------------------------------------------------------------------------------
 class SwinTwoStreamModel(nn.Module):
+    '''
+    Backbone Method: `Swin-B`
+    '''
     def __init__(self, num_classes=126, hidden_size=512, swin_model_name='swin_base_patch4_window7_224'):
         """
         Args:
