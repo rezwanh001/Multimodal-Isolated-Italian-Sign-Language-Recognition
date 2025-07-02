@@ -1,6 +1,6 @@
 # Multimodal-Isolated-Italian-Sign-Language-Recognition
 ---
-- **Team Name: ***CPAMI (UW)*****
+- ***Team Name:*** **CPAMI (UW)**
 - **📊 For reference, the best accuracy of our method was `99.365%` on the validation set and `99.444%` on the test set.**
 ---
 ---
