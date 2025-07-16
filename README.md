@@ -13,7 +13,7 @@ Paper Title: **FusionEnsemble-Net: An Attention-Based Ensemble of Spatiotemporal
 - If you find this project useful for your research, please cite [this paper](https://arxiv.org/abs/****.*****)
 
 ```bibtex
-@inproceedings{haque2025signer,
+@inproceedings{islam2025fusionensemble,
     title={FusionEnsemble-Net: An Attention-Based Ensemble of Spatiotemporal Networks for Multimodal Sign Language Recognition},
     author={Islam, Md. Milon and Haque, Md Rezwanul and Raju, S M Taslim Uddin and Karray, Fakhri},
     journal = {arXiv preprint arXiv:****.*****},
