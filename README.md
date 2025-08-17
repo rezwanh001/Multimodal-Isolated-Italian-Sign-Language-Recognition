@@ -9,10 +9,10 @@ Paper Title: **[FusionEnsemble-Net: An Attention-Based Ensemble of Spatiotempora
 
 #### ***Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV), Honolulu, Hawaii, USA. 1st MSLR Workshop 2025. Copyright 2025 by the author(s).***
 
-[![arXiv](https://img.shields.io/badge/arXiv-2508.08093-b31b1b)](https://arxiv.org/abs/2508.09362)
+[![arXiv](https://img.shields.io/badge/arXiv-2508.09362-b31b1b)](https://arxiv.org/abs/2508.09362)
 
 
-![](assets/FusionEnsemble-Net.png)
+![](asset/FusionEnsemble-Net.png)
 
 
 ## Abstract
